@@ -1,0 +1,60 @@
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <h1>Membership Plans</h1>
+      <p>Manage subscription packages, pricing, and benefits</p>
+    </div>
+    <button class="btn-primary" (click)="openModal()">+ Add New Plan</button>
+  </div>
+
+  <!-- Plans Grid -->
+  <div class="plans-grid">
+    <div class="plan-card" *ngFor="let plan of plans" [class.popular]="plan.isPopular">
+      <div class="popular-badge" *ngIf="plan.isPopular">Most Popular</div>
+      <h2 class="plan-name">{{ plan.name }}</h2>
+      
+      <div class="plan-price">
+        <span class="currency">$</span>
+        <span class="amount">{{ plan.price }}</span>
+        <span class="period">/ {{ plan.durationMonths }} {{ plan.durationMonths === 1 ? 'month' : 'months' }}</span>
+      </div>
+
+      <ul class="features-list">
+        <li *ngFor="let feature of plan.features">✓ {{ feature }}</li>
+      </ul>
+
+      <div class="card-actions">
+        <button class="btn-secondary" (click)="editPlan(plan)">Edit Price</button>
+        <button class="btn-danger" (click)="deletePlan(plan.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal - Add Plan -->
+<div class="modal-overlay" *ngIf="showModal">
+  <div class="modal-content">
+    <h2>Add New Membership Plan</h2>
+    <form (submit)="addPlan()">
+      <div class="form-group">
+        <label>Plan Name</label>
+        <input type="text" [(ngModel)]="newPlanName" name="name" placeholder="e.g. 6 Months Pro" required />
+      </div>
+
+      <div class="form-group">
+        <label>Price ($)</label>
+        <input type="number" [(ngModel)]="newPlanPrice" name="price" placeholder="e.g. 150" required />
+      </div>
+
+      <div class="form-group">
+        <label>Duration (Months)</label>
+        <input type="number" [(ngModel)]="newPlanDuration" name="duration" min="1" required />
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn-primary">Save Plan</button>
+      </div>
+    </form>
+  </div>
+</div>

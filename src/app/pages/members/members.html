@@ -1,0 +1,96 @@
+<div class="page-container">
+    <div class="page-header">
+      <div>
+        <h1>Members Management</h1>
+        <p>View and manage all club members and active subscriptions</p>
+      </div>
+      <button class="btn-primary" (click)="openModal()">+ Add New Member</button>
+    </div>
+  
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-title">Total Members</span>
+        <span class="stat-value">{{ members.length }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-title">Active Subscriptions</span>
+        <span class="stat-value text-success">215</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-title">Expiring This Week</span>
+        <span class="stat-value text-warning">12</span>
+      </div>
+    </div>
+  
+    <!-- Members Table -->
+    <div class="table-card">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Plan Type</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let member of members">
+            <td>{{ member.name }}</td>
+            <td>{{ member.plan }}</td>
+            <td>{{ member.startDate }}</td>
+            <td>{{ member.endDate }}</td>
+            <td>
+              <span class="badge" [ngClass]="{
+                'active': member.status === 'Active',
+                'expired': member.status === 'Expired',
+                'frozen': member.status === 'Frozen'
+              }">
+                {{ member.status }}
+              </span>
+            </td>
+            <td>
+              <!-- زر التعديل -->
+              <button class="btn-action" (click)="editMember(member)">Edit</button>
+              
+              <!-- زر التجميد (يظهر فقط إذا كان الحساب Active) -->
+              <button *if="member.status === 'Active'" class="btn-action btn-danger" (click)="freezeMember(member)">Freeze</button>
+              
+              <!-- زر التجديد (يظهر إذا كان Expired أو Frozen) -->
+              <button *ngIf="member.status !== 'Active'" class="btn-action btn-success" (click)="renewMember(member)">Renew</button>
+              
+              <!-- زر الحذف -->
+              <button class="btn-action btn-danger" (click)="deleteMember(member.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- Modal Overlay -->
+  <div class="modal-overlay" *ngIf="showModal">
+    <div class="modal-content">
+      <h2>Add New Member</h2>
+      <form (submit)="addMember()">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" [(ngModel)]="newMemberName" name="name" placeholder="Enter member name" required />
+        </div>
+        <div class="form-group">
+          <label>Plan Type</label>
+          <select [(ngModel)]="newMemberPlan" name="plan">
+            <option value="Monthly Plan">Monthly Plan</option>
+            <option value="VIP Gold Plan">VIP Gold Plan</option>
+            <option value="Annual Plan">Annual Plan</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" (click)="closeModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Save Member</button>
+        </div>
+      </form>
+    </div>
+  </div>

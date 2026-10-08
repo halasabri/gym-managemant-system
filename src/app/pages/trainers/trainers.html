@@ -1,0 +1,103 @@
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <h1>Trainers Management</h1>
+      <p>Manage gym trainers, their specialties, and active clients</p>
+    </div>
+    <button class="btn-primary" (click)="openModal()">+ Add New Trainer</button>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-title">Total Trainers</span>
+      <span class="stat-value">{{ trainers.length }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-title">Active Trainers</span>
+      <span class="stat-value text-success">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-title">Total Trainers</span>
+            <span class="stat-value">{{ trainers.length }}</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Active Trainers</span>
+            <span class="stat-value text-success">
+              {{ getActiveTrainersCount() }}
+            </span>
+          </div>
+        </div>
+      </span>
+    </div>
+  </div>
+
+  <!-- Trainers Table -->
+  <div class="table-card">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Specialty</th>
+          <th>Phone</th>
+          <th>Active Clients</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trainer of trainers">
+          <td><strong>{{ trainer.name }}</strong></td>
+          <td>{{ trainer.specialty }}</td>
+          <td>{{ trainer.phone }}</td>
+          <td>{{ trainer.clientsCount }} clients</td>
+          <td>
+            <span class="badge" [ngClass]="{
+              'active': trainer.status === 'Active',
+              'on-leave': trainer.status === 'On Leave'
+            }">
+              {{ trainer.status }}
+            </span>
+          </td>
+          <td>
+            <button class="btn-action" (click)="editTrainer(trainer)">Edit</button>
+            <button class="btn-action" (click)="toggleStatus(trainer)">
+              {{ trainer.status === 'Active' ? 'Set On Leave' : 'Set Active' }}
+            </button>
+            <button class="btn-action btn-danger" (click)="deleteTrainer(trainer.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Add Trainer Modal -->
+<div class="modal-overlay" *ngIf="showModal">
+  <div class="modal-content">
+    <h2>Add New Trainer</h2>
+    <form (submit)="addTrainer()">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" [(ngModel)]="newTrainerName" name="name" placeholder="Enter trainer name" required />
+      </div>
+      <div class="form-group">
+        <label>Specialty</label>
+        <select [(ngModel)]="newTrainerSpecialty" name="specialty">
+          <option value="Fitness & Bodybuilding">Fitness & Bodybuilding</option>
+          <option value="Yoga & Pilates">Yoga & Pilates</option>
+          <option value="CrossFit & Cardio">CrossFit & Cardio</option>
+          <option value="Boxing & Martial Arts">Boxing & Martial Arts</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="text" [(ngModel)]="newTrainerPhone" name="phone" placeholder="+962 7X XXX XXXX" />
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn-primary">Save Trainer</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <h1>Fitness Classes Schedule</h1>
+      <p>Manage group workout sessions, trainer schedules, and member bookings</p>
+    </div>
+    <button class="btn-primary" (click)="openModal()">+ Schedule New Class</button>
+  </div>
+
+  <!-- Classes Grid -->
+  <div class="classes-grid">
+    <div class="class-card" *ngFor="let item of classes">
+      <div class="card-header">
+        <span class="category-badge">{{ item.category }}</span>
+        <span class="status-badge" [class.full]="item.bookedCount >= item.capacity">
+          {{ item.bookedCount >= item.capacity ? 'Full' : 'Available' }}
+        </span>
+      </div>
+
+      <h2 class="class-title">{{ item.title }}</h2>
+
+      <div class="info-row">
+        <span class="icon">👟</span>
+        <span>Trainer: <strong>{{ item.trainer }}</strong></span>
+      </div>
+
+      <div class="info-row">
+        <span class="icon">📅</span>
+        <span>Days: <strong>{{ item.day }}</strong></span>
+      </div>
+
+      <div class="info-row">
+        <span class="icon">⏰</span>
+        <span>Time: <strong>{{ item.time }}</strong></span>
+      </div>
+
+      <div class="capacity-box">
+        <div class="capacity-text">
+          <span>Bookings</span>
+          <strong>{{ item.bookedCount }} / {{ item.capacity }} Seats</strong>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="(item.bookedCount / item.capacity) * 100"></div>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn-secondary" (click)="bookClass(item)" [disabled]="item.bookedCount >= item.capacity">
+          Book Spot
+        </button>
+        <button class="btn-outline" (click)="cancelBooking(item)" [disabled]="item.bookedCount === 0">
+          Cancel Spot
+        </button>
+        <button class="btn-danger" (click)="deleteClass(item.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal - Add Class -->
+<div class="modal-overlay" *ngIf="showModal">
+  <div class="modal-content">
+    <h2>Schedule New Class</h2>
+    <form (submit)="addClass()">
+      <div class="form-group">
+        <label>Class Name</label>
+        <input type="text" [(ngModel)]="newClassTitle" name="title" placeholder="e.g. HIIT Workout" required />
+      </div>
+
+      <div class="form-group">
+        <label>Trainer Name</label>
+        <input type="text" [(ngModel)]="newClassTrainer" name="trainer" placeholder="e.g. Samer Ali" required />
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <select [(ngModel)]="newClassCategory" name="category">
+          <option value="Cardio & Fitness">Cardio & Fitness</option>
+          <option value="Yoga & Pilates">Yoga & Pilates</option>
+          <option value="CrossFit">CrossFit</option>
+          <option value="Strength">Strength</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Schedule Day</label>
+        <input type="text" [(ngModel)]="newClassDay" name="day" placeholder="e.g. Mon, Wed, Fri" required />
+      </div>
+
+      <div class="form-group">
+        <label>Time Slot</label>
+        <input type="text" [(ngModel)]="newClassTime" name="time" placeholder="e.g. 05:00 PM - 06:00 PM" required />
+      </div>
+
+      <div class="form-group">
+        <label>Max Capacity</label>
+        <input type="number" [(ngModel)]="newClassCapacity" name="capacity" min="1" required />
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn-primary">Save Class</button>
+      </div>
+    </form>
+  </div>
+</div>

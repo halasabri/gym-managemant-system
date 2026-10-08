@@ -1,0 +1,220 @@
+.dashboard-container {
+    padding: 24px;
+    font-family: system-ui, -apple-system, sans-serif;
+    text-align: left;
+  }
+  
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .dashboard-header h1 {
+    margin: 0 0 6px 0;
+    color: #0f172a;
+  }
+  
+  .dashboard-header p {
+    margin: 0;
+    color: #64748b;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .btn-primary {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1d4ed8;
+  }
+  
+  .btn-secondary {
+    background-color: #ffffff;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #f8fafc;
+  }
+  
+  /* Stats Cards */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: #f1f5f9;
+  }
+  
+  .stat-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .stat-title {
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  
+  .stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0f172a;
+  }
+  
+  .stat-change {
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  
+  .text-success { color: #16a34a; }
+  .text-warning { color: #d97706; }
+  .text-muted { color: #94a3b8; }
+  
+  /* Main Grid Layout */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  
+  .card h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 18px;
+    color: #0f172a;
+  }
+  
+  /* Shortcuts Buttons */
+  .shortcuts-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  .shortcut-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #334155;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  
+  .shortcut-btn .icon {
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+  
+  .shortcut-btn:hover {
+    background: #eff6ff;
+    border-color: #3b82f6;
+    color: #2563eb;
+  }
+  
+  /* Activity List */
+  .activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .activity-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  
+  .activity-item:last-child {
+    border-bottom: none;
+  }
+  
+  .activity-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    font-size: 16px;
+  }
+  
+  .activity-details {
+    flex: 1;
+  }
+  
+  .activity-details strong {
+    display: block;
+    font-size: 14px;
+    color: #0f172a;
+  }
+  
+  .activity-details p {
+    margin: 0;
+    font-size: 13px;
+    color: #64748b;
+  }
+  
+  .activity-time {
+    font-size: 12px;
+    color: #94a3b8;
+  }
